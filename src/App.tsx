@@ -1,3 +1,4 @@
+import { SyncAlt } from '@mui/icons-material';
 import { PropsWithChildren, useState } from 'react';
 import styled from 'styled-components'
 
@@ -23,8 +24,11 @@ const Item = styled.div`
 `
 const Button = styled.button`
   width: fit-content;
-  height: 35%;
+  height: 35px;
   cursor:pointer;
+  border-radius: 5px;
+  background: lightblue;
+  font-weight: bolder;
   `
 
 
@@ -75,12 +79,13 @@ const DialogWindow = styled.div<{ wd?: number, hg?: number }>`
   z-index: 100001;
   background: #f0f0f0;
   border-radius: 5px;
-  overflow: auto;
+  overflow: hidden;
+  padding: 5px;
 `
 
 const DialogActions = styled.div`
   position:absolute;
-  bottom: 0;
+  bottom: 10px;
   width: 100%;
   height: fit-content;
   display:flex;
@@ -107,11 +112,12 @@ const Dialog = ({ title, open, wd, hg, handleClose, children }: PropsWithChildre
 
 
 
-const GridItem = styled(Grid) <{ rs?: number, cs?: number, align?: 'center' | 'start' | 'end', justify?: 'center' | 'start' | 'end' }>`
+const GridItem = styled(Grid) <{ rg?: number, rs?: number, cs?: number, align?: 'center' | 'start' | 'end', justify?: 'center' | 'start' | 'end' }>`
   grid-row: ${props => props.rs ? 'span ' + props.rs : ''} ;
   grid-column: span ${props => props.cs ? props.cs : 1};
   align-items: ${props => props.align ? props.align : ''};
   justify-items: ${props => props.justify ? props.justify : ''};
+  grid-row-gap: ${props => props.rg ? props.rg + 'px' : ''};
 `
 
 const ItemDePara = styled.div`
@@ -121,7 +127,12 @@ const ItemDePara = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.2rem;
-  justify-content: space-around;
+  justify-content: space-between;
+  color: white;
+  border-radius: 5px;
+  span{
+    padding-left: 10px;
+  }
 `
 
 const CheckBox = styled.input.attrs({ type: 'checkbox' })`
@@ -141,10 +152,10 @@ function App() {
           <GridItem cs={12} justify='center'>
             <span>HDL LOGISTICA HOSPITALAR - 11.872.656/001-10</span>
           </GridItem>
-          <GridItem cs={6} justify={'center'} align={'center'} style={{ background: 'gray', opacity: '0.5' }}>Ordem de Compras</GridItem>
-          <GridItem cs={6} justify={'center'} align={'center'} style={{ background: 'gray', opacity: '0.5' }}>Nota fiscal</GridItem>
-          <GridItem cs={12} style={{ height: '25px' }}>Marque as opções que correspondem/estão corretas:</GridItem>
-          <GridItem cs={12} cols={12} justify={'center'}>
+          <GridItem cs={6} justify={'center'} align={'center'} style={{ background: '#80808094', borderRadius: '5px', fontWeight: 600 }}>Ordem de Compras</GridItem>
+          <GridItem cs={6} justify={'center'} align={'center'} style={{ background: '#80808094', borderRadius: '5px', fontWeight: 600 }}>Nota fiscal</GridItem>
+          <GridItem cs={12} style={{ height: '25px', marginTop: '10px' }}>Marque as opções que correspondem/estão corretas:</GridItem>
+          <GridItem rg={15} cs={12} cols={12} justify={'center'}>
             <GridItem cs={6} align='center' justify='center'>
               <ItemDePara>
                 <span>Data de Emissão : 2010</span>
@@ -156,12 +167,34 @@ function App() {
                 <CheckBox />
               </ItemDePara>
             </GridItem>
+            <GridItem cs={6} align='center' justify='center'>
+              <ItemDePara>
+                <span>Descrição produto : Vacina COVID</span>
+              </ItemDePara>
+            </GridItem>
+            <GridItem cs={6}>
+              <ItemDePara>
+                <span>Descrição produto : VacinaCOVID</span>
+                <CheckBox />
+              </ItemDePara>
+            </GridItem>
+            <GridItem cs={6} align='center' justify='center'>
+              <ItemDePara>
+                <span>Valor unitario: R$ 1.200 </span>
+              </ItemDePara>
+            </GridItem>
+            <GridItem cs={6}>
+              <ItemDePara>
+                <span>Valor unitario: R$ 1.199</span>
+                <CheckBox />
+              </ItemDePara>
+            </GridItem>
           </GridItem>
         </Grid>
       </Dialog>
       <Div>
         <Item>
-          <Button onClick={() => setDialog(true)}> X </Button>
+          <Button onClick={() => setDialog(true)}><SyncAlt /></Button>
         </Item>
       </Div>
     </>
